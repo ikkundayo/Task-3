@@ -4,11 +4,10 @@
   <div class="row">
     <div class="col-md-3">
       <h2>User info</h2>
-       <% if @user.image.attached? %>
-        <%= image_tag @user.image, size: "63x63" %>
-       <% else %>
-        <%= image_tag 'no_image', size: "63x63" %>
-       <% end %>
+
+      <%= attachment_image_tag @user, :profile_image, format: 'jpeg', size: "63x63", fallback: "no_image.jpg" %>
+
+
 
       <table class="table">
   <tbody><tr></tr>
@@ -29,19 +28,19 @@
 </div>
 
       <h2 class="mt-3">New book</h2>
-      <form action="/books" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="DU1qkBfopPZuDKHrlnmBhtykxb+3OSBGK09Lt4JGMvHscqRhv9cHhH9Y6+f4jW7YkuECQJl3gk70RmLBTbaFEQ==">
-  <div class="form-group">
-    <label for="book_title">Title</label>
-    <input class="form-control book_title" type="text" name="book[title]" id="book_title">
-  </div>
-  <div class="form-group">
-    <label for="book_opinion">Opinion</label>
-    <textarea class="form-control book_body" name="book[body]" id="book_body"></textarea>
-  </div>
-  <div class="form-group">
-    <input type="submit" name="commit" value="Create Book" class="btn btn-success" data-disable-with="Create Book">
-  </div>
-</form>
+       <%= form_with model: @book, local:true do |f| %>
+          <div class="form-group">
+            <label for="book_title">Title</label>
+            <%= f.text_field :title, class:"form-control book_title" %>
+           </div>
+          <div class="form-group">
+            <label for="book_opinion">Opinion</label>
+            <%= f.text_area :body, class:"form-control book_body" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit 'Create Book', class:"btn btn-success" %>
+          </div>
+      <% end %>
     </div>
     <div class="col-md-8 offset-md-1">
       <h2>Users</h2>
@@ -57,11 +56,7 @@
   <tbody>
       <tr>
         <td>
-          <% if user.image.attached? %>
-            <%= image_tag user.image, size: "40x40" %>
-          <% else %>
-            <%= image_tag 'no_image', size: "40x40" %>
-          <% end %>
+          <%= attachment_image_tag user, :profile_image, size: "40x40", fallback: "no_image.jpg" %>
         </td>
         <td><%= user.name %></td>
         <td><%=link_to "Show", user_path(user) %></td>

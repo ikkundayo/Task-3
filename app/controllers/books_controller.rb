@@ -3,6 +3,16 @@ class BooksController < ApplicationController
   def index
      @book = Book.new
      @books = Book.all
+     @user = User.find(current_user.id)
+
+
+
+  end
+
+  def show
+     @book = Book.new
+     @books = Book.find_by(id: params[:id])
+     @user = User.find_by(id: @books.user_id)
 
   end
 
@@ -13,10 +23,6 @@ class BooksController < ApplicationController
     redirect_to book_path(@book.id)
   end
 
-
-
-  def show
-  end
 
   private
 
