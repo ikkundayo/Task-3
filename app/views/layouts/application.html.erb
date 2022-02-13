@@ -57,8 +57,9 @@
      </div>
       </nav>
     </header>
-    <p id="notice"></p>
-
+    <% flash.each do |message_type, message| %>
+      <%= content_tag(:p, message, id: "notice") %>
+    <% end %>
     <%= yield %>
 
   </body>
