@@ -54,12 +54,13 @@
             <% end %>
             </ul>
           </div>
-     </div>
+        </div>
       </nav>
     </header>
     <% flash.each do |message_type, message| %>
       <%= content_tag(:p, message, id: "notice") %>
     <% end %>
+      <br>
     <%= yield %>
 
   </body>
